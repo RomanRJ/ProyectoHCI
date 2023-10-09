@@ -8,7 +8,7 @@
                 <form v-on:submit.prevent="login">
                     <label for="usuario">Ingresa tu nombre para empezar:</label>
                     <input v-model="user" type="text" id="usuario" name="usuario" >
-                      <a href="#" class="boton">Iniciar</a>
+                    <button type="submit" class="boton_login">Iniciar</button>
                 </form>
                 <div v-if="error">
                     <h3>{{ error_msg }}</h3>
@@ -76,7 +76,7 @@
 }
 
 .columna1 {
-    background-image: url('https://images.pexels.com/photos/14168798/pexels-photo-14168798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-image: url('https://www.travelandleisure.com/thmb/mBNEFTaByoabvOqWb3rULukVLb4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tulum-quitana-roo-LOCALMEXICOGO1021-dfe18481190b4d74b97430714f59ffce.jpg');
     background-color: lightgray;
     background-size: cover;
     background-position: center;
