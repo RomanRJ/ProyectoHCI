@@ -44,17 +44,18 @@ export default {
     //window.removeEventListener('beforeunload', this.detenerWebGazer);
     //this.detenerWebGazer();
     webgazer.end();
+    
   },
   methods: {
     initializeWebGazer() {
         var seguimientoDeLaMirada = [];
-        webgazer.setRegression('linear').setTracker('clmtrackr').setGazeListener(function(data, elapsedTime) {
+        webgazer.setRegression('ridge').setTracker('TFFacemesh').setGazeListener(function(data, elapsedTime) {
             if (data == null) {
                 return;
             }
             seguimientoDeLaMirada.push(data);
             //if(data.x)
-            //console.log(data.x);
+            console.log(data);
     }).begin();
         webgazer.showPredictionPoints(true);
         webgazer.showVideoPreview(true);
@@ -62,7 +63,9 @@ export default {
         //webgazer.end();
     },
     detenerWebGazer(){
+        
         webgazer.end();
+   
     }
     
     
