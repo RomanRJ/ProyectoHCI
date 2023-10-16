@@ -29,8 +29,7 @@ export default {
     // Crea un array con las URLs de los scripts que quieres agregar
     const vueScripts = [
         "https://webgazer.cs.brown.edu/webgazer.js",
-        "https://webgazer.cs.brown.edu/jquery.js",
-        "https://cdn.plot.ly/plotly-latest.min.js"
+        "https://webgazer.cs.brown.edu/jquery.js"
     ];
 
     // Itera sobre el array y crea elementos script para cada URL
@@ -41,9 +40,10 @@ export default {
       document.head.appendChild(script);
     });
   },
-  beforeDestroy(){
-    window.removeEventListener('beforeunload', this.detenerWebGazer);
-    this.detenerWebGazer();
+  beforeRouteLeave(){
+    //window.removeEventListener('beforeunload', this.detenerWebGazer);
+    //this.detenerWebGazer();
+    webgazer.end();
   },
   methods: {
     initializeWebGazer() {
@@ -54,10 +54,11 @@ export default {
             }
             seguimientoDeLaMirada.push(data);
             //if(data.x)
-            console.log(data.x);
+            //console.log(data.x);
     }).begin();
         webgazer.showPredictionPoints(true);
-        //webgazer.showVideoPreview(false);
+        webgazer.showVideoPreview(true);
+        webgazer.removeMouseEventListeners();
         //webgazer.end();
     },
     detenerWebGazer(){
