@@ -1,6 +1,6 @@
 <template>
 <div>
-    <p>Bienvenido al heatmap</p>
+    <p>Sí funciona</p>
 </div>
     </template>
     
