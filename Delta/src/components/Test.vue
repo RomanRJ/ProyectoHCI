@@ -12,9 +12,9 @@
             <a class="boton" href="#" onclick="toggleVideo()">Distractor</a>
         </div>
         <div class="columna-dos">
-            <iframe src="https://www.cokitos.com/juegos/calculo-zombie/" frameborder="0"></iframe>
+            <iframe id="juego" src="https://www.cokitos.com/juegos/calculo-zombie/" frameborder="0"></iframe>
         </div>
-        <div class="columna-tres">
+        <div id="distractor" class="columna-tres">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/4JnYfOBUqlA?si=3hFUrtzG33A6WJ7q"></iframe>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/2oT4bnjlDNE?si=kji3E0jb98zpfPLM"></iframe>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/b9vXbuaACQE?si=w_4VKXLw7Pl47zHW"></iframe>        
@@ -24,6 +24,68 @@
 </template>
 
 <script>
+let actividadSegundos=0;
+let distractorSegundos=0;
+let antes=0;
+export default{
+    
+    mounted(){
+    const vueScripts = [
+        "https://webgazer.cs.brown.edu/webgazer.js",
+        "https://webgazer.cs.brown.edu/jquery.js"
+    ];
+
+    // Itera sobre el array y crea elementos script para cada URL
+    vueScripts.forEach(scriptUrl => {
+      let script = document.createElement("script");
+      script.setAttribute("src", scriptUrl);
+      script.onload = this.initializeWebGazer; 
+      document.head.appendChild(script);
+    });
+    
+    },
+    methods:{
+        initializeWebGazer() {
+        var iframe = document.getElementById('juego');
+        var distractor = document.getElementById('distractor');
+        var seguimientoDeLaMirada = [];
+        webgazer.setRegression('ridge').setTracker('TFFacemesh').setGazeListener(function(data, elapsedTime) {
+            if (data == null) {
+                return;
+            }          
+           
+            var rectActividad = iframe.getBoundingClientRect();
+            var rectDistractor = distractor.getBoundingClientRect();
+           let ahora=Date.now();
+           if(ahora-antes>=1000){
+            antes=ahora;
+            if (data.x>=rectActividad.left&&data.x<=rectActividad.right&&data.y>=rectActividad.top&&data.y<=rectActividad.bottom){
+                actividadSegundos++;
+                console.log("Actividad: ",actividadSegundos);
+            }
+            else if(data.x>=rectDistractor.left&&data.x<=rectDistractor.right&&data.y>=rectDistractor.top&&data.y<=rectDistractor.bottom){
+                distractorSegundos++;
+                console.log("Distractor: ",distractorSegundos);
+            }
+           }
+
+    }
+    ).begin();
+    
+        webgazer.showPredictionPoints(true);
+        webgazer.showVideoPreview(true);
+        webgazer.removeMouseEventListeners();
+        console.log("tiempo final actividad:",actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
+        console.log("tiempo final distractor:",distractorSegundos);//probar esto cuando se tenga lo de detener el webgazer
+        },
+    },
+
+
+    beforeUnmount(){
+        webgazer.end();
+    }
+
+};
 
 </script>
 
