@@ -153,7 +153,7 @@ export default {
 
     beforeUnmount() {
          webgazer.end();
-    }
+    },
     seleccionarRutaAleatoria() {
       if (this.indiceGrupo === 0) {
         // Primer grupo (rutas 1 a 3)
