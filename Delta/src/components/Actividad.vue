@@ -5,7 +5,7 @@
     </div>
     <div class="contenedor">
         <div class="cuadro-grande">
-            <iframe id="juego" src="https://www.cokitos.com/juegos/math-magic/" frameborder="0"></iframe>
+            <iframe v-bind:src="rutaAleatoria" frameborder="0"></iframe>
         </div>
         <div class="cuadro-pequeno-contenedor">
             <div class="cuadro-pequeno">
@@ -13,10 +13,10 @@
                 <h3>el tiempo</h3>
                 <h2>Actividad</h2>
                 <h3>la actividad</h3>
-                <a class="boton" href="#" @click.prevent="detener">Ver heatmap</a>
+                <h2>{{ textoIndiceGrupo }}</h2>
             </div>
             <div class="cuadro-pequeno">
-                <a class="boton" href="#" >Terminar actividad</a>  
+                <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente actividad</a>  
         </div>
         </div>
     </div>
@@ -30,7 +30,37 @@ let actividadSegundos = 0;
 let antes = 0;
 var datosHeatmap = [];
 export default {
+    data() {
+    return {
+        rutas: [
+            'https://www.cokitos.com/juegos/chicomates/juego/',
+            'https://www.cokitos.com/juegos/math-magic/',
+            'https://www.cokitos.com/juegos/calculos-verdadero-falso/',
+            'https://www.cokitos.com/juegos/sequence/',
+            'https://www.cokitos.com/juegos/laberinto-nocturno/',
+            'https://www.cokitos.com/juegos/wp-content/uploads/2020/memoria-among-us/',
+            'https://www.cokitos.com/juegos/pintar-laberinto/',
+            'https://www.cokitos.com/juegos/pixel-art-adultos/',
+            'https://html5.gamedistribution.com/5d296c421b544c8a83c5fbfe865a8a87/'
+
+        ],
+        indiceGrupo: 0,
+        rutaAleatoria: ''
+        };
+    },
+    computed: {
+        textoIndiceGrupo() {
+        if (this.indiceGrupo === 0) {
+            return 'COLOREAR';
+        } else if (this.indiceGrupo === 1) {
+            return 'MATEMATICAS';
+        } else {
+            return 'MEMORIA';
+        }
+        }
+    },
     mounted() {
+        this.seleccionarRutaAleatoria();
         const vueScripts = [
             "https://webgazer.cs.brown.edu/webgazer.js",
             "https://webgazer.cs.brown.edu/jquery.js",
@@ -124,7 +154,26 @@ export default {
     beforeUnmount() {
          webgazer.end();
     }
-
+    seleccionarRutaAleatoria() {
+      if (this.indiceGrupo === 0) {
+        // Primer grupo (rutas 1 a 3)
+        const indiceRuta = Math.floor(Math.random() * 3);
+        this.rutaAleatoria = this.rutas[indiceRuta];
+      } else if (this.indiceGrupo === 1) {
+        // Segundo grupo (rutas 4 a 6)
+        const indiceRuta = Math.floor(Math.random() * 3) + 3;
+        this.rutaAleatoria = this.rutas[indiceRuta];
+      } else if (this.indiceGrupo === 2) {
+        // Tercer grupo (rutas 7 a 9)
+        const indiceRuta = Math.floor(Math.random() * 3) + 6;
+        this.rutaAleatoria = this.rutas[indiceRuta];
+      } else if (this.indiceGrupo === 3) {
+        // acabar todo??
+      }
+      
+      // Actualiza el contador para el próximo clic, asegurándote de que no supere 2
+      this.indiceGrupo = (this.indiceGrupo + 1) % 3;
+    }
 };
        
 

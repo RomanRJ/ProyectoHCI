@@ -8,28 +8,56 @@
             <div class="thumb">
                 <img src="img/1.png" alt="paz">
             </div>
-            <a class="boton" href="#" >Iniciar Test</a>
-            <a class="boton" href="#" onclick="toggleVideo()">Distractor</a>
+            <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente seccion</a>
+            <h2>{{ textoIndiceGrupo }}</h2>
         </div>
         <div class="columna-dos">
-            <iframe id="juego" src="https://www.cokitos.com/juegos/calculo-zombie/" frameborder="0"></iframe>
+            <iframe v-bind:src="rutaAleatoria" frameborder="0"></iframe>
         </div>
-        <div id="distractor" class="columna-tres">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/4JnYfOBUqlA?si=3hFUrtzG33A6WJ7q"></iframe>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/2oT4bnjlDNE?si=kji3E0jb98zpfPLM"></iframe>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/b9vXbuaACQE?si=w_4VKXLw7Pl47zHW"></iframe>        
+        <div class="columna-tres">
+          <iframe src="https://www.tiktok.com/@life.hack387/video/7289847322719046944" frameborder="0"></iframe>
         </div>
     </div>
     </div>
+    
 </template>
 
 <script>
 let actividadSegundos=0;
 let distractorSegundos=0;
 let antes=0;
-export default{
-    
+export default {
+    data() {
+    return {
+      rutas: [
+        'https://www.cokitos.com/juegos/chicomates/juego/',
+        'https://www.cokitos.com/juegos/math-magic/',
+        'https://www.cokitos.com/juegos/calculos-verdadero-falso/',
+        'https://www.cokitos.com/juegos/sequence/',
+        'https://www.cokitos.com/juegos/laberinto-nocturno/',
+        'https://www.cokitos.com/juegos/wp-content/uploads/2020/memoria-among-us/',
+        'https://www.cokitos.com/juegos/pintar-laberinto/',
+        'https://www.cokitos.com/juegos/pixel-art-adultos/',
+        'https://html5.gamedistribution.com/5d296c421b544c8a83c5fbfe865a8a87/'
+
+      ],
+      indiceGrupo: 0,
+      rutaAleatoria: ''
+    };
+  },
+  computed: {
+    textoIndiceGrupo() {
+      if (this.indiceGrupo === 0) {
+        return 'COLOREAR';
+      } else if (this.indiceGrupo === 1) {
+        return 'MATEMATICAS';
+      } else {
+        return 'MEMORIA';
+      }
+    }
+  },
     mounted(){
+        this.seleccionarRutaAleatoria();
     const vueScripts = [
         "https://webgazer.cs.brown.edu/webgazer.js",
         "https://webgazer.cs.brown.edu/jquery.js"
@@ -84,6 +112,26 @@ export default{
     beforeUnmount(){
         webgazer.end();
     }
+    seleccionarRutaAleatoria() {
+    if (this.indiceGrupo === 0) {
+      // Primer grupo (rutas 1 a 3)
+      const indiceRuta = Math.floor(Math.random() * 3);
+      this.rutaAleatoria = this.rutas[indiceRuta];
+    } else if (this.indiceGrupo === 1) {
+      // Segundo grupo (rutas 4 a 6)
+      const indiceRuta = Math.floor(Math.random() * 3) + 3;
+      this.rutaAleatoria = this.rutas[indiceRuta];
+    } else if (this.indiceGrupo === 2) {
+      // Tercer grupo (rutas 7 a 9)
+      const indiceRuta = Math.floor(Math.random() * 3) + 6;
+      this.rutaAleatoria = this.rutas[indiceRuta];
+    } else if (this.indiceGrupo === 3) {
+      // acabar todo??
+    }
+    
+    // Actualiza el contador para el próximo clic, asegurándote de que no supere 2
+    this.indiceGrupo = (this.indiceGrupo + 1) % 3;
+  }
 
 };
 
