@@ -105,9 +105,6 @@ export default {
         webgazer.removeMouseEventListeners();
         console.log("tiempo final actividad:",actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
         },
-        beforeUnmount(){
-        webgazer.end();
-    },
     detener(){
             webgazer.pause();
             this.crearHeatmap(datosHeatmap);

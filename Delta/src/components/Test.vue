@@ -125,9 +125,6 @@ export default {
         console.log("tiempo final actividad:",actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
         console.log("tiempo final distractor:",distractorSegundos);//probar esto cuando se tenga lo de detener el webgazer
         },
-        beforeUnmount(){
-        webgazer.end();
-    },
     detener(){
             webgazer.pause();
             this.crearHeatmap(datosHeatmap);
