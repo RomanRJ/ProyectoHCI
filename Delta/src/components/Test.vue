@@ -12,21 +12,12 @@
             <h2>{{ textoIndiceGrupo }}</h2>
         </div>
         <div class="columna-dos">
-            <iframe v-bind:src="rutaAleatoria" frameborder="0"></iframe>
+            <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
         </div>
         <div class="columna-tres">
-            <tik-tok-embed
-                user="@redditjuan001166"
-                userProfile="https://www.tiktok.com/@redditjuan001166?refer=embed"
-                caption="Replying to @redditjuan001166 Has your best friend ever stabbed you in the back?"
-                :tags="['redditstories', 'redditreadings', 'requestedreads', 'requestedreading', 'reddit_tiktok', 'reddit', 'askreddit']"
-                sound="♬ original sound - redditjuan001166"
-                soundLink="https://www.tiktok.com/music/original-sound-7253504370699127598?refer=embed"
-                url="https://www.tiktok.com/@redditjuan001166/video/7253504334489586986"
-                videoId="7253504334489586986"
-                embedStyle="max-width: 605px; min-width: 325px;"
-                scriptSrc="https://www.tiktok.com/embed.js"
-      ></tik-tok-embed>
+
+          <iframe id="distractor" src="https://www.tiktok.com/@life.hack387/video/7289847322719046944" frameborder="0"></iframe>
+
         </div>
     </div>
     </div>
@@ -37,7 +28,8 @@
 let actividadSegundos=0;
 let distractorSegundos=0;
 let antes=0;
-import TikTokEmbed from './TikTokEmbed.vue';
+var datosHeatmap = [];
+
 export default {
     components: {
     TikTokEmbed, // Registra el componente TikTokEmbed para poder usarlo
@@ -75,7 +67,8 @@ export default {
         this.seleccionarRutaAleatoria();
     const vueScripts = [
         "https://webgazer.cs.brown.edu/webgazer.js",
-        "https://webgazer.cs.brown.edu/jquery.js"
+        "https://webgazer.cs.brown.edu/jquery.js",
+        "https://cdn.plot.ly/plotly-latest.min.js"
     ];
 
     // Itera sobre el array y crea elementos script para cada URL
@@ -116,37 +109,84 @@ export default {
     ).begin();
     
         webgazer.showPredictionPoints(true);
-        webgazer.showVideoPreview(true);
+        webgazer.showVideoPreview(false);
         webgazer.removeMouseEventListeners();
         console.log("tiempo final actividad:",actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
         console.log("tiempo final distractor:",distractorSegundos);//probar esto cuando se tenga lo de detener el webgazer
         },
-    },
-
-
-    beforeUnmount(){
+        beforeUnmount(){
         webgazer.end();
     },
-    seleccionarRutaAleatoria() {
+    detener(){
+            webgazer.pause();
+            console.log("DETENER");
+            this.crearHeatmap(datosHeatmap);
+            
+            //window.history.replaceState({}, null, '/Heatmap')
+            this.$router.push('/Heatmap', () => {}, { replace: true })
+        },
+        crearHeatmap(data){
+            var xData = data.map(function(point) {
+                return point.x;
+            });
+            var yData = data.map(function(point) {
+                return point.y;
+            });
+
+            // Crear un heatmap con Plotly.js
+            var heatmapData = [{
+                z: xData,
+                x: xData,
+                y: yData,
+                type: 'heatmap',
+                colorscale: 'Viridis'
+            }];
+            var datos=[{
+                x:xData,
+                y:yData
+                }
+            ]
+            var datosWebGazer=JSON.stringify(datos);
+
+
+            var heatmapLayout = {
+                title: 'Heatmap de Seguimiento de la Mirada',
+                xaxis: { title: 'Coordenada X' },
+                yaxis: { title: 'Coordenada Y' }
+            };
+            sessionStorage.setItem('data', JSON.stringify(heatmapData));
+            sessionStorage.setItem('layout', JSON.stringify(heatmapLayout));
+           
+        },
+        seleccionarRutaAleatoria() {
+
     if (this.indiceGrupo === 0) {
       // Primer grupo (rutas 1 a 3)
       const indiceRuta = Math.floor(Math.random() * 3);
-      this.rutaAleatoria = this.rutas[indiceRuta];
+      this.$refs.juegos.src=this.rutas[indiceRuta];
+
     } else if (this.indiceGrupo === 1) {
       // Segundo grupo (rutas 4 a 6)
       const indiceRuta = Math.floor(Math.random() * 3) + 3;
-      this.rutaAleatoria = this.rutas[indiceRuta];
+      this.$refs.juegos.src=this.rutas[indiceRuta];
+
     } else if (this.indiceGrupo === 2) {
       // Tercer grupo (rutas 7 a 9)
       const indiceRuta = Math.floor(Math.random() * 3) + 6;
-      this.rutaAleatoria = this.rutas[indiceRuta];
+      this.$refs.juegos.src=this.rutas[indiceRuta];
+
     } else if (this.indiceGrupo === 3) {
-      // acabar todo??
+      this.detener();
     }
     
     // Actualiza el contador para el próximo clic, asegurándote de que no supere 2
-    this.indiceGrupo = (this.indiceGrupo + 1) % 3;
+    this.indiceGrupo = (this.indiceGrupo + 1) % 4;
   }
+   
+    },
+
+
+    
 
 };
 

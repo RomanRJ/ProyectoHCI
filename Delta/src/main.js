@@ -15,7 +15,7 @@ import Heatmap from './components/Heatmap.vue';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-      { path: '/heatmap',component:Heatmap},
+      { path: '/Heatmap',component:Heatmap},
       { path: '/Inicio', component: Inicio },
       { path: '/Actividad', component: Actividad },
       { path: '/Test', component: Test },

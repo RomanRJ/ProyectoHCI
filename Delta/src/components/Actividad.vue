@@ -5,7 +5,7 @@
     </div>
     <div class="contenedor">
         <div class="cuadro-grande">
-            <iframe v-bind:src="rutaAleatoria" frameborder="0"></iframe>
+            <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
         </div>
         <div class="cuadro-pequeno-contenedor">
             <div class="cuadro-pequeno">
@@ -13,10 +13,11 @@
                 <h3>el tiempo</h3>
                 <h2>Actividad</h2>
                 <h3>la actividad</h3>
-                <h2>{{ textoIndiceGrupo }}</h2>
+                <h2 ref="titulosJuegos">{{ textoIndiceGrupo }}</h2>
             </div>
             <div class="cuadro-pequeno">
                 <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente actividad</a>  
+                
         </div>
         </div>
     </div>
@@ -113,7 +114,7 @@ export default {
             this.crearHeatmap(datosHeatmap);
             
             window.history.replaceState({}, null, '/Resultados')
-            console.log("DETENER");
+            this.$router.push('/resultados', () => {}, { replace: true })
         },
         crearHeatmap(data){
             var xData = data.map(function(point) {
@@ -147,33 +148,31 @@ export default {
             sessionStorage.setItem('data', JSON.stringify(heatmapData));
             sessionStorage.setItem('layout', JSON.stringify(heatmapLayout));
            
-        }
-        
-    },
-
-    beforeUnmount() {
-         webgazer.end();
-    },
-    seleccionarRutaAleatoria() {
+        },
+        seleccionarRutaAleatoria() {
       if (this.indiceGrupo === 0) {
         // Primer grupo (rutas 1 a 3)
         const indiceRuta = Math.floor(Math.random() * 3);
-        this.rutaAleatoria = this.rutas[indiceRuta];
+        this.$refs.juegos.src=this.rutas[indiceRuta];
       } else if (this.indiceGrupo === 1) {
         // Segundo grupo (rutas 4 a 6)
         const indiceRuta = Math.floor(Math.random() * 3) + 3;
-        this.rutaAleatoria = this.rutas[indiceRuta];
+        this.$refs.juegos.src=this.rutas[indiceRuta];
       } else if (this.indiceGrupo === 2) {
         // Tercer grupo (rutas 7 a 9)
         const indiceRuta = Math.floor(Math.random() * 3) + 6;
-        this.rutaAleatoria = this.rutas[indiceRuta];
+        this.$refs.juegos.src=this.rutas[indiceRuta];
       } else if (this.indiceGrupo === 3) {
-        // acabar todo??
+        this.detener();
+        console.log("Detener");
       }
       
       // Actualiza el contador para el próximo clic, asegurándote de que no supere 2
-      this.indiceGrupo = (this.indiceGrupo + 1) % 3;
+      this.indiceGrupo = (this.indiceGrupo + 1) % 4;
     }
+        
+    }
+    
 };
        
 
