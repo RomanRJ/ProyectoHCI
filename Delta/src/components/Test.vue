@@ -14,9 +14,20 @@
         <div class="columna-dos">
             <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
         </div>
-        <div class="columna-tres">
+        <div id="distractor" class="columna-tres">
 
-          <iframe id="distractor" src="https://www.tiktok.com/@life.hack387/video/7289847322719046944" frameborder="0"></iframe>
+            <tik-tok-embed
+            user="@redditjuan001166"
+            userProfile="https://www.tiktok.com/@redditjuan001166?refer=embed"
+            caption="Replying to @redditjuan001166 Has your best friend ever stabbed you in the back?"
+            :tags="['redditstories', 'redditreadings', 'requestedreads', 'requestedreading', 'reddit_tiktok', 'reddit', 'askreddit']"
+            sound="♬ original sound - redditjuan001166"
+            soundLink="https://www.tiktok.com/music/original-sound-7253504370699127598?refer=embed"
+            url="https://www.tiktok.com/@redditjuan001166/video/7253504334489586986"
+            videoId="7253504334489586986"
+            embedStyle="max-width: 605px; min-width: 325px;"
+            scriptSrc="https://www.tiktok.com/embed.js"
+            ></tik-tok-embed>
 
         </div>
     </div>
@@ -29,9 +40,10 @@ let actividadSegundos=0;
 let distractorSegundos=0;
 let antes=0;
 var datosHeatmap = [];
-
+import TikTokEmbed from './TikTokEmbed.vue';
 export default {
     components: {
+        TikTokEmbed
   },
     data() {
     return {
