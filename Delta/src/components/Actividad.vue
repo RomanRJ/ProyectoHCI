@@ -82,7 +82,7 @@ export default {
             console.log("DETENER");
             this.crearHeatmap(datosHeatmap);
             
-            this.$router.replace('/Resultados');
+            window.history.replaceState({}, null, '/Resultados')
             console.log("DETENER");
         },
         crearHeatmap(data){
