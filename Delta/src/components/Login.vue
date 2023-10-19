@@ -76,7 +76,7 @@
 }
 
 .columna1 {
-    background-image: url('https://www.travelandleisure.com/thmb/mBNEFTaByoabvOqWb3rULukVLb4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tulum-quitana-roo-LOCALMEXICOGO1021-dfe18481190b4d74b97430714f59ffce.jpg');
+    background-image: url('https://images.pexels.com/photos/14168798/pexels-photo-14168798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
     background-color: lightgray;
     background-size: cover;
     background-position: center;
@@ -117,6 +117,7 @@ input {
     font-size: 40px;
     color:white ;
     border-radius: 5px;
+    border: none;
     background: rgb(109, 177, 147);
 }
 </style>

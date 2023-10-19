@@ -10,18 +10,22 @@ import Actividad from './components/Actividad.vue';
 import Test from './components/Test.vue';
 import Resultados from './components/Resultados.vue';
 import Sidebar from './components/sidebar.vue';
+import Heatmap from './components/Heatmap.vue';
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-      { path: '/Login', component: Login },
-      { path: '/', component: Sidebar,},
+      { path: '/heatmap',component:Heatmap},
       { path: '/Inicio', component: Inicio },
       { path: '/Actividad', component: Actividad },
       { path: '/Test', component: Test },
-      { path: '/Resultados', component: Resultados }
+      { path: '/Resultados', component: Resultados },
+      { path: '/Login', component: Login },
+      { path: '/', component: Sidebar},
+     
     ],
   });
   const app = createApp(App);
   app.use(router);
   app.mount('#app');
+
