@@ -6,7 +6,7 @@
     <div class="contenedor">
         <div class="columna-uno">
             <div class="thumb">
-                <img src="img/1.png" alt="paz">
+                <img src="./img/1.png" alt="paz">
             </div>
             <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente seccion</a>
             <h2>{{ textoIndiceGrupo }}</h2>
@@ -15,7 +15,9 @@
             <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
         </div>
         <div class="columna-tres">
+
           <iframe id="distractor" src="https://www.tiktok.com/@life.hack387/video/7289847322719046944" frameborder="0"></iframe>
+
         </div>
     </div>
     </div>
@@ -27,7 +29,11 @@ let actividadSegundos=0;
 let distractorSegundos=0;
 let antes=0;
 var datosHeatmap = [];
+
 export default {
+    components: {
+    TikTokEmbed, // Registra el componente TikTokEmbed para poder usarlo
+  },
     data() {
     return {
       rutas: [
@@ -153,6 +159,7 @@ export default {
            
         },
         seleccionarRutaAleatoria() {
+
     if (this.indiceGrupo === 0) {
       // Primer grupo (rutas 1 a 3)
       const indiceRuta = Math.floor(Math.random() * 3);
