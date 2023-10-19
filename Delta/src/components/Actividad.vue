@@ -25,96 +25,93 @@
 </template>
 
 <script>
-//import { ref } from 'vue';
-
-let actividadSegundos = 0;
-let antes = 0;
+let actividadSegundos=0;
+let antes=0;
 var datosHeatmap = [];
+
 export default {
+    components: {
+  },
     data() {
     return {
-        rutas: [
-            'https://www.cokitos.com/juegos/chicomates/juego/',
-            'https://www.cokitos.com/juegos/math-magic/',
-            'https://www.cokitos.com/juegos/calculos-verdadero-falso/',
-            'https://www.cokitos.com/juegos/sequence/',
-            'https://www.cokitos.com/juegos/laberinto-nocturno/',
-            'https://www.cokitos.com/juegos/wp-content/uploads/2020/memoria-among-us/',
-            'https://www.cokitos.com/juegos/pintar-laberinto/',
-            'https://www.cokitos.com/juegos/pixel-art-adultos/',
-            'https://html5.gamedistribution.com/5d296c421b544c8a83c5fbfe865a8a87/'
+      rutas: [
+        'https://www.cokitos.com/juegos/chicomates/juego/',
+        'https://www.cokitos.com/juegos/math-magic/',
+        'https://www.cokitos.com/juegos/calculos-verdadero-falso/',
+        'https://www.cokitos.com/juegos/sequence/',
+        'https://www.cokitos.com/juegos/laberinto-nocturno/',
+        'https://www.cokitos.com/juegos/wp-content/uploads/2020/memoria-among-us/',
+        'https://www.cokitos.com/juegos/pintar-laberinto/',
+        'https://www.cokitos.com/juegos/pixel-art-adultos/',
+        'https://html5.gamedistribution.com/5d296c421b544c8a83c5fbfe865a8a87/'
 
-        ],
-        indiceGrupo: 0,
-        rutaAleatoria: ''
-        };
-    },
-    computed: {
-        textoIndiceGrupo() {
-        if (this.indiceGrupo === 0) {
-            return 'COLOREAR';
-        } else if (this.indiceGrupo === 1) {
-            return 'MATEMATICAS';
-        } else {
-            return 'MEMORIA';
-        }
-        }
-    },
-    mounted() {
+      ],
+      indiceGrupo: 0,
+      rutaAleatoria: ''
+    };
+  },
+  computed: {
+    textoIndiceGrupo() {
+      if (this.indiceGrupo === 0) {
+        return 'COLOREAR';
+      } else if (this.indiceGrupo === 1) {
+        return 'MATEMATICAS';
+      } else {
+        return 'MEMORIA';
+      }
+    }
+  },
+    mounted(){
         this.seleccionarRutaAleatoria();
-        const vueScripts = [
-            "https://webgazer.cs.brown.edu/webgazer.js",
-            "https://webgazer.cs.brown.edu/jquery.js",
-            "https://cdn.plot.ly/plotly-latest.min.js"
-        ];
+    const vueScripts = [
+        "https://webgazer.cs.brown.edu/webgazer.js",
+        "https://webgazer.cs.brown.edu/jquery.js",
+        "https://cdn.plot.ly/plotly-latest.min.js"
+    ];
 
-        // Itera sobre el array y crea elementos script para cada URL
-        vueScripts.forEach(scriptUrl => {
-            let script = document.createElement("script");
-            script.setAttribute("src", scriptUrl);
-            script.onload = this.initializeWebGazer;
-            document.head.appendChild(script);
-        });
-       
-
-        this.initializeWebGazer()
+    // Itera sobre el array y crea elementos script para cada URL
+    vueScripts.forEach(scriptUrl => {
+      let script = document.createElement("script");
+      script.setAttribute("src", scriptUrl);
+      script.onload = this.initializeWebGazer; 
+      document.head.appendChild(script);
+    });
     
     },
-
-    methods: {
+    methods:{
         initializeWebGazer() {
-            var iframe = document.getElementById('juego');
-            var seguimientoDeLaMirada = [];
-           webgazer.setRegression('ridge').setTracker('TFFacemesh').setGazeListener(function (data, elapsedTime) {
-                if (data == null) {
-                    return;
-                }
-                datosHeatmap.push(data);
-                var rect = iframe.getBoundingClientRect();
-                let ahora = Date.now();
-                if (ahora - antes >= 1000) {
-                    antes = ahora;
-                    if (data.x >= rect.left && data.x <= rect.right && data.y >= rect.top && data.y <= rect.bottom) {
-                        actividadSegundos++;
-                        console.log(actividadSegundos);
-                    }
-                }
-
+        var iframe = document.getElementById('juego');
+        webgazer.setRegression('ridge').setTracker('TFFacemesh').setGazeListener(function(data, elapsedTime) {
+            if (data == null) {
+                return;
+            }          
+           datosHeatmap.push(data);
+            var rectActividad = iframe.getBoundingClientRect();
+           let ahora=Date.now();
+           if(ahora-antes>=1000){
+            antes=ahora;
+            if (data.x>=rectActividad.left&&data.x<=rectActividad.right&&data.y>=rectActividad.top&&data.y<=rectActividad.bottom){
+                actividadSegundos++;
+                console.log("Actividad: ",actividadSegundos);
             }
-            ).begin();
 
-           webgazer.showPredictionPoints(true);
-            webgazer.showVideoPreview(true);
-            webgazer.removeMouseEventListeners();
-            console.log("tiempo final:", actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
+           }
+
+    }
+    ).begin();
+    
+        webgazer.showPredictionPoints(false);
+        webgazer.showVideoPreview(false);
+        webgazer.removeMouseEventListeners();
+        console.log("tiempo final actividad:",actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
         },
-        detener(){
+        beforeUnmount(){
+        webgazer.end();
+    },
+    detener(){
             webgazer.pause();
-            console.log("DETENER");
             this.crearHeatmap(datosHeatmap);
-            
-            window.history.replaceState({}, null, '/Resultados')
-            this.$router.push('/resultados', () => {}, { replace: true })
+            this.$router.push('/Heatmap', () => {}, { replace: true })
         },
         crearHeatmap(data){
             var xData = data.map(function(point) {
@@ -145,36 +142,42 @@ export default {
                 xaxis: { title: 'Coordenada X' },
                 yaxis: { title: 'Coordenada Y' }
             };
+            
             sessionStorage.setItem('data', JSON.stringify(heatmapData));
             sessionStorage.setItem('layout', JSON.stringify(heatmapLayout));
            
         },
         seleccionarRutaAleatoria() {
-      if (this.indiceGrupo === 0) {
-        // Primer grupo (rutas 1 a 3)
-        const indiceRuta = Math.floor(Math.random() * 3);
-        this.$refs.juegos.src=this.rutas[indiceRuta];
-      } else if (this.indiceGrupo === 1) {
-        // Segundo grupo (rutas 4 a 6)
-        const indiceRuta = Math.floor(Math.random() * 3) + 3;
-        this.$refs.juegos.src=this.rutas[indiceRuta];
-      } else if (this.indiceGrupo === 2) {
-        // Tercer grupo (rutas 7 a 9)
-        const indiceRuta = Math.floor(Math.random() * 3) + 6;
-        this.$refs.juegos.src=this.rutas[indiceRuta];
-      } else if (this.indiceGrupo === 3) {
-        this.detener();
-        console.log("Detener");
-      }
-      
-      // Actualiza el contador para el próximo clic, asegurándote de que no supere 2
-      this.indiceGrupo = (this.indiceGrupo + 1) % 4;
-    }
-        
+
+    if (this.indiceGrupo === 0) {
+      // Primer grupo (rutas 1 a 3)
+      const indiceRuta = Math.floor(Math.random() * 3);
+      this.$refs.juegos.src=this.rutas[indiceRuta];
+
+    } else if (this.indiceGrupo === 1) {
+      // Segundo grupo (rutas 4 a 6)
+      const indiceRuta = Math.floor(Math.random() * 3) + 3;
+      this.$refs.juegos.src=this.rutas[indiceRuta];
+
+    } else if (this.indiceGrupo === 2) {
+      // Tercer grupo (rutas 7 a 9)
+      const indiceRuta = Math.floor(Math.random() * 3) + 6;
+      this.$refs.juegos.src=this.rutas[indiceRuta];
+
+    } else if (this.indiceGrupo === 3) {
+      this.detener();
     }
     
+    // Actualiza el contador para el próximo clic, asegurándote de que no supere 2
+    this.indiceGrupo = (this.indiceGrupo + 1) % 4;
+  }
+   
+    },
+
+
+    
+
 };
-       
 
 </script>
 

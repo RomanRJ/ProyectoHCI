@@ -32,7 +32,6 @@ var datosHeatmap = [];
 
 export default {
     components: {
-    TikTokEmbed, // Registra el componente TikTokEmbed para poder usarlo
   },
     data() {
     return {
@@ -89,7 +88,7 @@ export default {
             if (data == null) {
                 return;
             }          
-           
+           datosHeatmap.push(data);
             var rectActividad = iframe.getBoundingClientRect();
             var rectDistractor = distractor.getBoundingClientRect();
            let ahora=Date.now();
@@ -108,7 +107,7 @@ export default {
     }
     ).begin();
     
-        webgazer.showPredictionPoints(true);
+        webgazer.showPredictionPoints(false);
         webgazer.showVideoPreview(false);
         webgazer.removeMouseEventListeners();
         console.log("tiempo final actividad:",actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
@@ -119,10 +118,7 @@ export default {
     },
     detener(){
             webgazer.pause();
-            console.log("DETENER");
             this.crearHeatmap(datosHeatmap);
-            
-            //window.history.replaceState({}, null, '/Heatmap')
             this.$router.push('/Heatmap', () => {}, { replace: true })
         },
         crearHeatmap(data){
@@ -154,6 +150,7 @@ export default {
                 xaxis: { title: 'Coordenada X' },
                 yaxis: { title: 'Coordenada Y' }
             };
+            
             sessionStorage.setItem('data', JSON.stringify(heatmapData));
             sessionStorage.setItem('layout', JSON.stringify(heatmapLayout));
            
