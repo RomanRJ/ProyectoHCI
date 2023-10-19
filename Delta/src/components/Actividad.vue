@@ -23,6 +23,60 @@
 </template>
 
 <script>
+export default {
+  mounted() {
+    window.addEventListener('beforeunload', this.detenerWebGazer);
+    // Crea un array con las URLs de los scripts que quieres agregar
+    const vueScripts = [
+        "https://webgazer.cs.brown.edu/webgazer.js",
+        "https://webgazer.cs.brown.edu/jquery.js"
+    ];
+
+    // Itera sobre el array y crea elementos script para cada URL
+    vueScripts.forEach(scriptUrl => {
+      let script = document.createElement("script");
+      script.setAttribute("src", scriptUrl);
+      script.onload = this.initializeWebGazer; 
+      document.head.appendChild(script);
+    });
+  },
+  beforeRouteLeave(){
+    //window.removeEventListener('beforeunload', this.detenerWebGazer);
+    //this.detenerWebGazer();
+    webgazer.end();
+    
+  },
+  methods: {
+    initializeWebGazer() {
+        var seguimientoDeLaMirada = [];
+        webgazer.setRegression('ridge').setTracker('TFFacemesh').setGazeListener(function(data, elapsedTime) {
+            if (data == null) {
+                return;
+            }
+            seguimientoDeLaMirada.push(data);
+            //if(data.x)
+            console.log(data);
+    }).begin();
+        webgazer.showPredictionPoints(true);
+        webgazer.showVideoPreview(true);
+        webgazer.removeMouseEventListeners();
+        //webgazer.end();
+    },
+    detenerWebGazer(){
+        
+        webgazer.end();
+   
+    }
+    
+    
+  } 
+  
+};
+
+
+
+       
+
 </script>
 
 <style scoped>
