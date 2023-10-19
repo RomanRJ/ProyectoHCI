@@ -13,8 +13,8 @@
                     <img src="img/1.png" alt="paz">
                 </div>
             <p>Las actividades prácticas te ofrecerán una experiencia directa para fortalecer tu
-                 enfoque y avanzar hacia una mejor concentración rápidamente. ¡Comencemos esta 
-                 emocionante travesía juntos</p>
+                 enfoque y avanzar hacia una mejor concentración rápidamente. Comencemos esta 
+                 emocionante travesía juntos!</p>
         </div>
         <div class="cuadro-pequeno-contenedor">
             <div class="cuadro-pequeno">
@@ -26,7 +26,7 @@
                     ¡Juntos, mejoraremos tu enfoque!
                     <br>
                     <br>
-                    Correo electrónico - </p>
+                     </p>
             </div>
             <div class="cuadro-pequeno">
                 <div class="thumb">

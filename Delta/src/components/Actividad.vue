@@ -109,6 +109,7 @@ export default {
             webgazer.pause();
             this.crearHeatmap(datosHeatmap);
             this.$router.push('/Heatmap', () => {}, { replace: true })
+            localStorage.actividadSegundos=actividadSegundos;
         },
         crearHeatmap(data){
             var xData = data.map(function(point) {

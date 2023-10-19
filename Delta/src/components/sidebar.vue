@@ -10,7 +10,7 @@
                 <nav class="menuLaterla">
                     <a class="boton" @click="Test">Test</a>
                     <a class="boton" @click="Actividad">Actividad</a>
-                    <a class="boton" @click="Resultados">Resultados</a>
+                    <a class="boton" @click="Heatmap">Resultados</a>
                     <div class="relleno"></div>
                 </nav>
             </div>
@@ -70,8 +70,8 @@ export default {
     Test(){
         this.$router.push('/Test');
     },
-    Resultados(){
-        this.$router.push('/Resultados');
+    Heatmap(){
+        this.$router.push('/Heatmap');
     }
   },
 };
