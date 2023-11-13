@@ -43,7 +43,7 @@ export default {
         'https://www.cokitos.com/juegos/wp-content/uploads/2020/memoria-among-us/',
         'https://www.cokitos.com/juegos/pintar-laberinto/',
         'https://www.cokitos.com/juegos/pixel-art-adultos/',
-        'https://html5.gamedistribution.com/5d296c421b544c8a83c5fbfe865a8a87/'
+        'https://www.cokitos.com/juegos/libro-dibujos/'
 
       ],
       indiceGrupo: 0,

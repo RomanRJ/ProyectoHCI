@@ -15,19 +15,12 @@
             <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
         </div>
         <div id="distractor" class="columna-tres">
-
-            <tik-tok-embed
-            user="@redditjuan001166"
-            userProfile="https://www.tiktok.com/@redditjuan001166?refer=embed"
-            caption="Replying to @redditjuan001166 Has your best friend ever stabbed you in the back?"
-            :tags="['redditstories', 'redditreadings', 'requestedreads', 'requestedreading', 'reddit_tiktok', 'reddit', 'askreddit']"
-            sound="♬ original sound - redditjuan001166"
-            soundLink="https://www.tiktok.com/music/original-sound-7253504370699127598?refer=embed"
-            url="https://www.tiktok.com/@redditjuan001166/video/7253504334489586986"
-            videoId="7253504334489586986"
-            embedStyle="max-width: 605px; min-width: 325px;"
-            scriptSrc="https://www.tiktok.com/embed.js"
-            ></tik-tok-embed>
+            
+        <iframe
+                src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en"
+                frameborder="0"
+                style="width: 100%; height: 900px;"
+            ></iframe>
 
         </div>
     </div>
@@ -47,6 +40,7 @@ export default {
   },
     data() {
     return {
+   // tiktokVideoUrl: "https://www.tiktok.com/@redditjuan001166/video/7262726565874732331?is_from_webapp=1&sender_device=pc&web_id=7291552246294513157",
       rutas: [
         'https://www.cokitos.com/juegos/chicomates/juego/',
         'https://www.cokitos.com/juegos/math-magic/',
@@ -56,7 +50,7 @@ export default {
         'https://www.cokitos.com/juegos/wp-content/uploads/2020/memoria-among-us/',
         'https://www.cokitos.com/juegos/pintar-laberinto/',
         'https://www.cokitos.com/juegos/pixel-art-adultos/',
-        'https://html5.gamedistribution.com/5d296c421b544c8a83c5fbfe865a8a87/'
+        'https://www.cokitos.com/juegos/libro-dibujos/'
 
       ],
       indiceGrupo: 0,
@@ -72,7 +66,9 @@ export default {
       } else {
         return 'MEMORIA';
       }
+      
     }
+    
   },
     mounted(){
         this.seleccionarRutaAleatoria();
