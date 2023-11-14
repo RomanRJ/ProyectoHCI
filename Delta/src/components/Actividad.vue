@@ -16,6 +16,7 @@
                 <h2 ref="titulosJuegos">{{ textoIndiceGrupo }}</h2>
             </div>
             <div class="cuadro-pequeno">
+                <h2>{{tiempoRestante}} segundos</h2>
                 <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente actividad</a>  
                 
         </div>
@@ -27,6 +28,8 @@
 <script>
 let actividadSegundos=0;
 let antes=0;
+
+
 var datosHeatmap = [];
 
 export default {
@@ -47,6 +50,7 @@ export default {
 
       ],
       indiceGrupo: 0,
+      tiempoRestante:60,
       rutaAleatoria: ''
     };
   },
@@ -63,6 +67,7 @@ export default {
   },
     mounted(){
         this.seleccionarRutaAleatoria();
+       
     const vueScripts = [
         "https://webgazer.cs.brown.edu/webgazer.js",
         "https://webgazer.cs.brown.edu/jquery.js",
@@ -96,15 +101,29 @@ export default {
             }
 
            }
+           
+           
 
     }
+   
     ).begin();
     
         webgazer.showPredictionPoints(false);
         webgazer.showVideoPreview(false);
         webgazer.removeMouseEventListeners();
         console.log("tiempo final actividad:",actividadSegundos);//probar esto cuando se tenga lo de detener el webgazer
+
         },
+        iniciarTemporizador() {
+      this.intervalo = setInterval(() => {
+        if (this.tiempoRestante > 0) {
+          this.tiempoRestante--;
+        } else {
+          clearInterval(this.intervalo);
+          this.detenerTemporizador();
+        }
+      }, 1000);
+    },
     detener(){
             webgazer.pause();
             this.crearHeatmap(datosHeatmap);
@@ -145,24 +164,32 @@ export default {
             sessionStorage.setItem('layout', JSON.stringify(heatmapLayout));
            
         },
+        detenerTemporizador() {
+            console.log(this.indiceGrupo);
+            this.tiempoRestante = 60;
+            this.seleccionarRutaAleatoria();
+    },
         seleccionarRutaAleatoria() {
-
+            clearInterval(this.intervalo);
     if (this.indiceGrupo === 0) {
       // Primer grupo (rutas 1 a 3)
+      this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3);
       this.$refs.juegos.src=this.rutas[indiceRuta];
-
+      
     } else if (this.indiceGrupo === 1) {
       // Segundo grupo (rutas 4 a 6)
+      this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3) + 3;
       this.$refs.juegos.src=this.rutas[indiceRuta];
-
+      
     } else if (this.indiceGrupo === 2) {
       // Tercer grupo (rutas 7 a 9)
+      this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3) + 6;
       this.$refs.juegos.src=this.rutas[indiceRuta];
-
-    } else if (this.indiceGrupo === 3) {
+      
+    } else if (this.indiceGrupo ===3) {
       this.detener();
     }
     

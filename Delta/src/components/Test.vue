@@ -9,6 +9,7 @@
                 <img src="./img/1.png" alt="paz">
             </div>
             <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente seccion</a>
+            <h2>{{tiempoRestante}} segundos</h2>
             <h2>{{ textoIndiceGrupo }}</h2>
         </div>
         <div class="columna-dos">
@@ -54,6 +55,7 @@ export default {
 
       ],
       indiceGrupo: 0,
+      tiempoRestante:180,
       rutaAleatoria: ''
     };
   },
@@ -162,20 +164,38 @@ export default {
             sessionStorage.setItem('layout', JSON.stringify(heatmapLayout));
            
         },
+        iniciarTemporizador() {
+      this.intervalo = setInterval(() => {
+        if (this.tiempoRestante > 0) {
+          this.tiempoRestante--;
+        } else {
+          clearInterval(this.intervalo);
+          this.detenerTemporizador();
+        }
+      }, 1000);
+    },
+        detenerTemporizador() {
+            console.log(this.indiceGrupo);
+            this.tiempoRestante = 180;
+            this.seleccionarRutaAleatoria();
+    },
         seleccionarRutaAleatoria() {
 
     if (this.indiceGrupo === 0) {
       // Primer grupo (rutas 1 a 3)
+      this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3);
       this.$refs.juegos.src=this.rutas[indiceRuta];
 
     } else if (this.indiceGrupo === 1) {
       // Segundo grupo (rutas 4 a 6)
+      this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3) + 3;
       this.$refs.juegos.src=this.rutas[indiceRuta];
 
     } else if (this.indiceGrupo === 2) {
       // Tercer grupo (rutas 7 a 9)
+      this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3) + 6;
       this.$refs.juegos.src=this.rutas[indiceRuta];
 
