@@ -1,14 +1,15 @@
 <template>
     <div id="body">
         <div class="columna1">
+            <div class="borde"><div class="logo"></div></div>
         </div>
         <div class="columna2">
             <div class="formulario">
-                <h2>Bienvenido</h2>
+                <h1>Bienvenido!</h1>
                 <form v-on:submit.prevent="login">
-                    <label for="usuario">Ingresa tu nombre para empezar:</label>
-                    <input v-model="user" type="text" id="usuario" name="usuario" >
-                    <button type="submit" class="boton_login">Iniciar</button>
+                    <label for="usuario" class="texto">Ingresa tu nombre para empezar:</label>
+                    <input v-model="user" type="text" id="usuario" placeholder=" &#128100; Usuario" name="usuario" required >
+                    <button type="submit" class="boton">Iniciar</button>
                 </form>
                 <div v-if="error">
                     <h3>{{ error_msg }}</h3>
@@ -49,7 +50,7 @@
 }
 </script>
 
-<style>
+<style scoped>
 * {
 	padding: 0;
 	margin: 0;
@@ -60,7 +61,7 @@
 
 #body {
     font-family: 'Open Sans', sans-serif;
-	background: rgb(244, 229, 194);
+	background: #F4E5C2;
     display: flex;
     height: 100vh;
 }
@@ -76,48 +77,77 @@
 }
 
 .columna1 {
-    background-image: url('https://images.pexels.com/photos/14168798/pexels-photo-14168798.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-image: url('img/libro.png');
     background-color: lightgray;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-
-.columna2 {
-    background-color: rgb(244, 229, 194);
+.columna1 .borde { 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 80px;
+    margin: 30px;
+    border: 3px solid rgba(217, 217, 217);
 }
-.formulario {
+.columna1 .borde .logo{
+    background: url("img/logo.png") ;
+    background-size: cover;
+    position: absolute;
+    bottom: 2px;
+    width: 200px;
+    height: 80px;
+    
+}
+.columna2 {
+    width: 100%;
+	background: linear-gradient(260deg, rgba(64, 120, 31, 0.50) 0%, rgba(97, 130, 69, 0.50) 44.12%), url(img/verde.png);
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+	padding: 50px 50px 0px 50px;
+}
+.columna2 .formulario {
     width: 75%;
     height: 75%;
-    background-color:white;
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    justify-content: center; 
-    background: rgba(235, 255, 250, 0.50);
-    border-radius: 10px;
+    border-radius: 15px;
+}
+.columna2 .formulario h1{
+    margin: 30px;
+    color: #fff;
+}
+.columna2 .formulario .texto{
+    color: #fff;
+}
+.columna2 .formulario input {
+    margin: 35px;
+    width: 300px;
+    height: 35px;
+    border-radius: 5px;
+    color: #fff;
+    background: rgba(151, 180, 34, 0.2);
+    mix-blend-mode: plus-lighter;
+    
 }
 form{
     text-align: center;
 }
-h2{
-    margin: 50px;
-    
-}
-input {
-    margin: 30px;
-    width: 300px;
-    height: 30px;
+
+.columna2 .formulario .boton {
+    text-decoration: none;
+    padding: 5px 20px;
+    margin: auto;
+    font-size: 30px;
+    color:#fff ;
+    border-radius: 5px;
+    border:none;
+    background: linear-gradient(86deg, #779261 3.57%, #447B23 96.43%);
 }
 
-.boton_login {
-    text-decoration: none;
-    padding: 5px;
-    margin: 40px;
-    font-size: 40px;
-    color:white ;
-    border-radius: 5px;
-    border: none;
-    background: rgb(109, 177, 147);
-}
+.columna2 .formulario .boton:hover {background: #447B23;}
 </style>

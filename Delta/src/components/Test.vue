@@ -1,31 +1,54 @@
 <template>
-    <div id="body">
-        <div class="titulo">
-        <h1>Test</h1>
-    </div>
-    <div class="contenedor">
-        <div class="columna-uno">
-            <div class="thumb">
-                <img src="./img/1.png" alt="paz">
-            </div>
-            <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente seccion</a>
-            <h2>{{tiempoRestante}} segundos</h2>
-            <h2>{{ textoIndiceGrupo }}</h2>
-        </div>
-        <div class="columna-dos">
-            <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
-        </div>
-        <div id="distractor" class="columna-tres">
-            
-        <iframe
-                src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en"
-                frameborder="0"
-                style="width: 100%; height: 900px;"
-            ></iframe>
+    <div class="contendedor">
+		<header>
+			<div class="filtro"></div>
+			<section class="filauno">
+				<a @click="Inicio" class="logo"></a>
+				<nav class="menu">
+					<a @click="Actividad">Actividad</a>
+					<a @click="Test">Test</a>
+					<a @click="Heatmap">Resultados</a>
+				</nav>
+			</section>
+		</header>
 
+        <div class="filados">
+            <h1>Test</h1>
+            <p>Comprobar la capacidad del usuario para 
+                concentrarse la pantalla está seccionada 
+                en partes en donde el usuario tendrá que 
+                mantener la vista en las actividades mientras 
+                en  variadas distracciones suceden en la 
+                pantalla.</p>
         </div>
-    </div>
-    </div>
+
+
+        <div class="contenedor">
+            <div class="cuadro-grande">
+                <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
+            </div>
+            <div class="cuadro-pequeno-contenedor">
+                <div class="cuadro-pequeno">
+                    <iframe src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en" frameborder="0"></iframe>
+                </div>
+
+                <h2>{{ textoIndiceGrupo }}</h2>
+                <h2>{{tiempoRestante}} segundos</h2>
+                <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente Actividad</a> 
+            </div>
+        </div>
+
+		<footer>
+			<section class="redes-sociales">
+				<div class="contenedor">
+					<a href="#" class="gmail"><img src="./img/gmail.png" alt="gmail"></a>
+					<a href="https://github.com/RomanRJ/ProyectoHCI" class="github"><img src="./img/github.png" alt="github"></a>
+					<a href="#" class="linkedin"><img src="./img/linkedin.png" alt="linkedin"></a>
+				</div>
+			</section>
+		</footer>
+	</div>
+
     
 </template>
 
@@ -90,6 +113,18 @@ export default {
     
     },
     methods:{
+        Inicio() {
+          this.$router.push('/');
+        },
+        Actividad(){
+          this.$router.push('/Actividad');
+        },
+        Test(){
+          this.$router.push('/Test');
+        },
+        Heatmap(){
+          this.$router.push('/Heatmap');
+        },
         initializeWebGazer() {
         var iframe = document.getElementById('juego');
         var distractor = document.getElementById('distractor');
@@ -225,89 +260,152 @@ export default {
 	box-sizing: border-box;
 }
 
-#body {
-    font-family: 'Open Sans', sans-serif;
-	background: #F4E5C2;
-    display: flex;
-    height: 100vh;
-    flex-direction: column; 
-    align-items: center; 
-}
-iframe{
-    width: 100%;
-    height: 100%;
-}
-.titulo h1{
-    text-align: center; 
-    margin: 10px;
+body {
+	font-family: 'Open Sans', sans-serif;
+	background: #fff;
+   
 }
 
 .contenedor {
-    display: flex;
-    justify-content: space-between; 
+	margin: auto;
+	display: flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+header {
+	width: 100%;
+	background: linear-gradient(260deg, rgba(64, 120, 31, 0.50) 0%, rgba(97, 130, 69, 0.50) 44.12%), url(img/verde.png);
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+	padding: 5px 50px 5px 50px;
+}
+
+header .filauno {
+	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+    align-items: center;
+}
+
+header .filauno .logo {
+	width: 150px;
+    height: 69px;
+    background: url("img/logo.png");
+    background-size: cover;
+    overflow: hidden;
+}
+
+
+header .filauno .menu a{
+	color: #fff;
+	text-decoration: none;
+	margin-right:40px;
+	font-size: 18px;
+}
+
+iframe{
     width: 100%; 
     height: 100%;
 }
-.columna-uno{
-    flex: 1 0 20%; /* Tamaño de flexión: 20% */
-    border-radius: 10px;
-    color: #323232;
-    font-size: 1.2rem;
-    background-color: rgba(235, 255, 250, 0.5);
-    padding: 20px;
-    margin: 0px 10px 20px 20px;
+h2{
+    text-align: center;
 }
 
-.columna-dos,
-.columna-tres {
-    flex: 1 40%; 
+.filados {
+    background: rgba(197, 214, 183, 0.25);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 40px;
+}
+
+.filados h1 {
+    font-size: 24px;
+    color: #323232;
+    margin: 20px;
+}
+
+.filados p {
+    font-size: 16px;
+    color: #323232;
+}
+
+header .filauno .menu a:hover {text-decoration: underline;}
+
+.cuadro-grande {
     border-radius: 10px;
     color: #323232;
     font-size: 1.2rem;
-    
-}
-.columna-dos{ 
-    margin: 0px 10px 20px 10px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(260deg, rgba(197, 214, 183, 0.90) 39.58%, rgba(134, 160, 112, 0.90) 67.71%);
     padding: 20px;
-    background-color: rgba(235, 255, 250, 0.5);
+    margin: 0px 20px 40px 40px;
+    flex: 3; 
+    width: 70%; 
+    height: 600px;
 }
-.columna-tres{
-    margin: 0px 20px 20px 10px;
+
+
+.cuadro-pequeno-contenedor {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(235, 255, 250, 0.5);
+    margin: 0px 40px 40px 10px;
+    flex: 1; 
+    width: 40%; 
+    height: 100%;
 }
-.columna-tres iframe {
-    max-width: 75%;
-    width: 100%;
-    height: auto;
-    margin: 10px 0px;
-}
-.columna-uno .thumb img {
+
+.cuadro-pequeno-contenedor .cuadro-pequeno {
     border-radius: 10px;
-    padding: 10px;
-    background-color: #F4E5C2;
-    max-width: 100%; 
-    height: auto; 
-    display: block; 
-    margin: 10% auto; 
+    color: #323232;
+    background: rgba(197, 214, 183, 0.25);
+    margin: 0px 0px;
+    height: 600px;
+    width: 250px;
 }
-.columna-uno h2,
-.columna-tres h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.boton {
-    margin: 20px 0px;
-    text-decoration: none;
-    padding: 10px;
-    font-size: 15px;
-    color:#000 ;
-    border-radius: 5px;
+
+.cuadro-pequeno-contenedor .boton {
     background: #6DB193;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 10px;
+    background: linear-gradient(86deg, #779261 3.57%, #447B23 96.43%); 
+
+    font-size: 28px;
+    text-align: center;
     display: block;
-    text-align: center; 
+    margin: 10px 8px;
 }
+
+.cuadro-pequeno-contenedor .boton:hover {background: #447B23;}
+
+footer .redes-sociales {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(260deg, rgba(197, 214, 183, 0.90) 39.58%, rgba(134, 160, 112, 0.90) 67.71%);
+    padding:  60px 0;
+}
+
+footer .redes-sociales .contenedor {
+    display: flex;
+    justify-content:center;
+}
+
+footer .redes-sociales a {
+    color: #fff;
+    text-align: center;
+    width: 100px;
+    display: block;
+    padding: 15px 0;
+    border-radius: 3px;
+    font-size: 30px;
+    margin: 0 20px;
+    border-radius: 3px;
+}
+
+footer .redes-sociales .gmail:hover:hover {background: #FBBC05;}
+footer .redes-sociales .github:hover {background: #333;}
+footer .redes-sociales .linkedin:hover {background: #0a66c2;}
 </style>

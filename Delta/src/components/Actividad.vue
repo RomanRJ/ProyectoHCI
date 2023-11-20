@@ -1,28 +1,55 @@
 <template>
-    <div id="body">
-        <div class="titulo">
-        <h1>Actividad</h1>
-    </div>
-    <div class="contenedor">
-        <div class="cuadro-grande">
-            <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
+  <div class="contendedor">
+		<header>
+			<div class="filtro"></div>
+			<section class="filauno">
+				<a @click="Inicio" class="logo"></a>
+				<nav class="menu">
+					<a @click="Actividad">Actividad</a>
+					<a @click="Test">Test</a>
+					<a @click="Heatmap">Resultados</a>
+				</nav>
+			</section>
+		</header>
+
+        <div class="filados">
+            <h1>Actividad</h1>
+            <p>Muestra distracciones para intentar llamar la 
+                atención del usuario, esta es una forma de dejar 
+                probar al usuario las actividades de una manera 
+                más relajada, por eso su simplesa a primera vista.</p>
         </div>
-        <div class="cuadro-pequeno-contenedor">
-            <div class="cuadro-pequeno">
-                <h2>Tiempo</h2>
-                <h3>el tiempo</h3>
-                <h2>Actividad</h2>
-                <h3>la actividad</h3>
-                <h2 ref="titulosJuegos">{{ textoIndiceGrupo }}</h2>
+
+
+        <div class="contenedor">
+            <div class="cuadro-grande">
+              <iframe  ref="juegos" v-bind:src="rutaAleatoria" frameborder="0" id="juego"></iframe>
             </div>
-            <div class="cuadro-pequeno">
-                <h2>{{tiempoRestante}} segundos</h2>
-                <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente actividad</a>  
+            <div class="cuadro-pequeno-contenedor">
+                <div class="cuadro-pequeno">
+                    <h2>Tiempo</h2>
+                    <h3>el tiempo</h3>
+                    <h2>Actividad</h2>
+                    <h3>la actividad</h3>
+                    <h2 ref="titulosJuegos">{{ textoIndiceGrupo }}</h2>
+                </div>
                 
+                <h2>{{tiempoRestante}} segundos</h2>
+                <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente actividad</a>   
+            </div>
         </div>
-        </div>
-    </div>
-    </div>
+
+		<footer>
+			<section class="redes-sociales">
+				<div class="contenedor">
+					<a href="#" class="gmail"><img src="./img/gmail.png" alt="gmail"></a>
+					<a href="https://github.com/RomanRJ/ProyectoHCI" class="github"><img src="./img/github.png" alt="github"></a>
+					<a href="#" class="linkedin"><img src="./img/linkedin.png" alt="linkedin"></a>
+				</div>
+			</section>
+		</footer>
+	</div>
+
 </template>
 
 <script>
@@ -84,6 +111,18 @@ export default {
     
     },
     methods:{
+        Inicio() {
+          this.$router.push('/');
+        },
+        Actividad(){
+          this.$router.push('/Actividad');
+        },
+        Test(){
+          this.$router.push('/Test');
+        },
+        Heatmap(){
+          this.$router.push('/Heatmap');
+        },
         initializeWebGazer() {
         var iframe = document.getElementById('juego');
         webgazer.setRegression('ridge').setTracker('TFFacemesh').setGazeListener(function(data, elapsedTime) {
@@ -208,97 +247,164 @@ export default {
 
 <style scoped>
 * {
-    padding: 0;
-    margin: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-#body {
-    font-family: 'Open Sans', sans-serif;
-    background: #F4E5C2;
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-    align-items: center;
-}
-
-.titulo h1 {
-    text-align: center;
-    margin: 10px;
+body {
+	font-family: 'Open Sans', sans-serif;
+	background: #fff;
+   
 }
 
 .contenedor {
-    display: flex;
+	margin: auto;
+	display: flex;
+	flex-direction:row;
+	flex-wrap:wrap;
     justify-content: space-between;
     width: 100%;
     height: 100%;
+}
+
+header {
+	width: 100%;
+	background: linear-gradient(260deg, rgba(64, 120, 31, 0.50) 0%, rgba(97, 130, 69, 0.50) 44.12%), url(img/verde.png);
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+	padding: 5px 50px 5px 50px;
+}
+
+header .filauno {
+	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+    align-items: center;
+}
+
+header .filauno .logo {
+	width: 150px;
+    height: 69px;
+    background: url("img/logo.png");
+    background-size: cover;
+    overflow: hidden;
+}
+
+
+header .filauno .menu a{
+	color: #fff;
+	text-decoration: none;
+	margin-right:40px;
+	font-size: 18px;
+}
+header .filauno .menu a:hover {text-decoration: underline;}
+.filados {
+    background: rgba(197, 214, 183, 0.25);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 40px;
+}
+
+.filados h1 {
+    font-size: 24px;
+    color: #323232;
+    margin: 20px;
+}
+
+.filados p {
+    font-size: 16px;
+    color: #323232;
 }
 
 .cuadro-grande {
     border-radius: 10px;
     color: #323232;
     font-size: 1.2rem;
-    background-color: rgba(235, 255, 250, 0.5);
+    border-radius: 15px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(260deg, rgba(197, 214, 183, 0.90) 39.58%, rgba(134, 160, 112, 0.90) 67.71%);
     padding: 20px;
-    margin: 0px 10px 20px 20px;
-    flex: 3; /* Cambiamos a 3 para que ocupe el 75% del ancho */
-    width: 75%; /* Nuevo */
-}
-
-.cuadro-grande .thumb img {
-    max-width: 35%;
-    height: auto;
-    display: block;
-    margin: 10% auto;
+    margin: 0px 20px 40px 40px;
+    flex: 3; 
+    width: 80%; 
 }
 iframe{
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
+
 
 .cuadro-pequeno-contenedor {
     display: flex;
     flex-direction: column;
-    margin: 0px 20px 20px 10px;
-    flex: 1; /* Cambiamos a 1 para que ocupe el 25% del ancho */
-    width: 25%; /* Nuevo */
+    margin: 0px 40px 40px 10px;
+    flex: 1; 
+    width: 40%; 
 }
 
 .cuadro-pequeno {
     border-radius: 10px;
     color: #323232;
     font-size: 1.2rem;
-    background-color: rgba(235, 255, 250, 0.5);
+    border-radius: 15px;
+    background: rgba(197, 214, 183, 0.25);
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 0px 0px;
 }
 
 .cuadro-pequeno h2 {
+    color: #323232;
     text-align: center;
-    margin:  20px;
+    margin:  40px;
 }
 .cuadro-pequeno h3 {
+     color: #323232;
     text-align: center;
-    margin: 40px;
+    margin: 60px;
 }
 
-.cuadro-pequeno .thumb img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
 
 
 .boton {
-    border-radius: 5px;
     background: #6DB193;
     text-decoration: none;
-    color: #323232;
+    color: #fff;
+    border-radius: 5px;
+    background: linear-gradient(86deg, #779261 3.57%, #447B23 96.43%);
     font-size: 28px;
     text-align: center;
     display: block;
     margin: 40px 8px;
 }
+.boton:hover {background: #447B23;}
+
+footer .redes-sociales {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), linear-gradient(260deg, rgba(197, 214, 183, 0.90) 39.58%, rgba(134, 160, 112, 0.90) 67.71%);
+    padding:  60px 0;
+}
+
+footer .redes-sociales .contenedor {
+    display: flex;
+    justify-content:center;
+}
+
+footer .redes-sociales a {
+    color: #fff;
+    text-align: center;
+    width: 100px;
+    display: block;
+    padding: 15px 0;
+    border-radius: 3px;
+    font-size: 30px;
+    margin: 0 20px;
+    border-radius: 3px;
+}
+
+footer .redes-sociales .gmail:hover:hover {background: #FBBC05;}
+footer .redes-sociales .github:hover {background: #333;}
+footer .redes-sociales .linkedin:hover {background: #0a66c2;}
 </style>
