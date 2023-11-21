@@ -14,10 +14,9 @@
 
         <div class="filados">
             <h1>Resultados</h1>
-            <p>No venia nada en la presentacio ayuda banda aaaaaaa
-                Lorem ipsum dolor sit amet consectetur.
-                Lorem ipsum, dolor sit amet  adipisicing elit. 
-                Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            <p>Muestra los reslutados de la última prueba, por un lado tenemos el mapa de calor
+                (Heatmap) donde muestra las zonas de mayor actividad durante la prueba y también
+                se dan los tiempos de las diferentes zonas en la pantalla.</p>
         </div>
 
 

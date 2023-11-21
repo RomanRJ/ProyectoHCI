@@ -14,10 +14,9 @@
 
         <div class="filados">
             <h1>Actividad</h1>
-            <p>Muestra distracciones para intentar llamar la 
-                atención del usuario, esta es una forma de dejar 
-                probar al usuario las actividades de una manera 
-                más relajada, por eso su simplesa a primera vista.</p>
+            <p>Práctica las actividades que se mostrarán en el apartado de "Test" 
+              pero sin distractores para que el usuario pueda realizarlas de una
+              manera tranquila.</p>
         </div>
 
 
