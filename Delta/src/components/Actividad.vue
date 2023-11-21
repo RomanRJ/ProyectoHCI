@@ -27,13 +27,10 @@
             <div class="cuadro-pequeno-contenedor">
                 <div class="cuadro-pequeno">
                     <h2>Tiempo</h2>
-                    <h3>el tiempo</h3>
+                    <h3>{{tiempoRestante}} segundos</h3>
                     <h2>Actividad</h2>
-                    <h3>la actividad</h3>
-                    <h2 ref="titulosJuegos">{{ textoIndiceGrupo }}</h2>
+                    <h3>ref="titulosJuegos">{{ textoIndiceGrupo }}</h3>
                 </div>
-                
-                <h2>{{tiempoRestante}} segundos</h2>
                 <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente actividad</a>   
             </div>
         </div>
