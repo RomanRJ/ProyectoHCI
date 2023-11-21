@@ -29,7 +29,7 @@
                     <h2>Tiempo</h2>
                     <h3>{{tiempoRestante}} segundos</h3>
                     <h2>Actividad</h2>
-                    <h3>ref="titulosJuegos">{{ textoIndiceGrupo }}</h3>
+                    <h3 ref="titulosJuegos">{{ textoIndiceGrupo }}</h3>
                 </div>
                 <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente actividad</a>   
             </div>
