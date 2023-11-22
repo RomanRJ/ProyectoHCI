@@ -29,7 +29,7 @@
             </div>
             <div class="cuadro-pequeno-contenedor">
                 <div class="cuadro-pequeno">
-                    <iframe src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en" frameborder="0"></iframe>
+                    <iframe src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en" frameborder="0" id="distractor"></iframe>
                 </div>
 
                 <h2>{{ textoIndiceGrupo }}</h2>
