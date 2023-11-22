@@ -29,7 +29,7 @@
             </div>
             <div class="cuadro-pequeno-contenedor">
                 <div class="cuadro-pequeno">
-                    <iframe src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en" frameborder="0"></iframe>
+                    <iframe src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en" frameborder="0"  id="distractor"></iframe>
                 </div>
 
                 <h2>{{ textoIndiceGrupo }}</h2>
@@ -58,6 +58,7 @@ let distractorSegundos=0;
 let antes=0;
 var datosHeatmap = [];
 import TikTokEmbed from './TikTokEmbed.vue';
+import axios from 'axios';
 export default {
     components: {
         TikTokEmbed
@@ -79,7 +80,8 @@ export default {
       ],
       indiceGrupo: 0,
       tiempoRestante:180,
-      rutaAleatoria: ''
+      rutaAleatoria: '',
+      mensaje:''
     };
   },
   computed: {
@@ -164,6 +166,16 @@ export default {
             this.$router.push('/Heatmap', () => {}, { replace: true })
             localStorage.actividadSegundos=actividadSegundos;
             localStorage.distractorSegundos=distractorSegundos;
+
+            let json = { usuario: localStorage.user, actividad: actividadSegundos, distractor: distractorSegundos};
+            axios.post('https://lineaitalia.net/folios/backend.php', json)
+            .then(data => {
+            this.mensaje = data.data.message;
+            console.log(this.mensaje);
+            }).catch(error => {
+            console.error("Error al cargar los productos: " + error);
+            });
+
         },
         crearHeatmap(data){
             var xData = data.map(function(point) {
