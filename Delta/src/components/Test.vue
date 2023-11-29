@@ -32,7 +32,7 @@
                     <iframe src="https://www.tiktok.com/embed/v2/7102069682340941062?lang=en" frameborder="0" id="distractor"></iframe>
                 </div>
 
-                <h2>{{ textoIndiceGrupo }}</h2>
+                <h2>{{ textoIndice }}</h2>
                 <h2>{{tiempoRestante}} segundos</h2>
                 <a class="boton" href="#" @click="seleccionarRutaAleatoria" >Siguiente Actividad</a> 
             </div>
@@ -83,7 +83,7 @@ export default {
     };
   },
   computed: {
-    textoIndiceGrupo() {
+   /* textoIndiceGrupo() {
       if (this.indiceGrupo === 0) {
         return 'COLOREAR';
       } else if (this.indiceGrupo === 1) {
@@ -92,7 +92,7 @@ export default {
         return 'MEMORIA';
       }
       
-    }
+    }*/
     
   },
     mounted(){
@@ -211,25 +211,31 @@ export default {
     },
         detenerTemporizador() {
             console.log(this.indiceGrupo);
-            this.tiempoRestante = 180;
-            this.seleccionarRutaAleatoria();
+            //this.tiempoRestante = 180;
+            //this.seleccionarRutaAleatoria();
     },
-        seleccionarRutaAleatoria() {
-
+    seleccionarRutaAleatoria() {
+      clearInterval(this.intervalo);
     if (this.indiceGrupo === 0) {
       // Primer grupo (rutas 1 a 3)
+      this.textoIndice="MATEMÁTICAS";
+      this.tiempoRestante = 180;
       this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3);
       this.$refs.juegos.src=this.rutas[indiceRuta];
 
     } else if (this.indiceGrupo === 1) {
       // Segundo grupo (rutas 4 a 6)
+      this.textoIndice="MEMORIA";
+      this.tiempoRestante = 180;
       this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3) + 3;
       this.$refs.juegos.src=this.rutas[indiceRuta];
 
     } else if (this.indiceGrupo === 2) {
       // Tercer grupo (rutas 7 a 9)
+      this.textoIndice="COLOREAR";
+      this.tiempoRestante = 180;
       this.iniciarTemporizador();
       const indiceRuta = Math.floor(Math.random() * 3) + 6;
       this.$refs.juegos.src=this.rutas[indiceRuta];
